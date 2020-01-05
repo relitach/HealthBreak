@@ -1,0 +1,272 @@
+<html>
+<head>
+  <title>HealthBreak</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:site_name" content="VA Mirrors Apps" />
+  <meta name="title" content="HealthBreak">
+  <meta name="description" content="An app for testing and comparing glasses">
+  <meta property='og:image:type' content='image/png' />
+  <meta property='og:image:width' content='200' />
+  <meta property='og:image:height' content='200' />
+  <meta property="og:image" itemprop="image" content="va.png">
+
+  
+
+  <style type="text/css">
+    body {
+          margin: 0;
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+            "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+            sans-serif;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          background: #fff !important;
+          color: #666 !important;
+          font-size: 16px !important;
+          align-items: center;
+          justify-content: center;
+          text-align: center !important;
+
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.App{
+  text-align: center;
+}
+
+
+
+.container {
+  /* display: flex; */
+  justify-content: center;
+  /* flex-wrap: wrap; */
+
+}
+
+
+
+
+.row {
+   display: flex; /*equal height of the children */
+  justify-content: center;
+  /* border: solid 1px black; */
+  margin-bottom: 4%;
+}
+
+.col {
+  flex: 1; /* additionally, equal width */
+}
+
+
+.Middlediv{
+  border: solid 1px black;
+  width: max-width;
+}
+
+.Bottomdiv{
+  border: solid 1px black;
+}
+
+.wrap-buttons{
+  position: absolute;
+  bottom: 7%;
+  left: 0;
+  right: 0;
+}
+
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.playvideo-button,
+.startrecord-button,
+.stoprecord-button{
+  box-sizing: border-box;
+    width: 40px;
+    height: 40px;
+    /* border: 2px solid #fff; */
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    font-size: 11px;
+    /* font-weight: bold; */
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin: 0 auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.playvideo-button:hover,
+.startrecord-button:hover,
+.stoprecord-button:hover{
+  background-color: rgba(0,0,0,0.8);
+  box-shadow: 0px 0px 10px rgba(255,255,100,1);
+  text-shadow: 0px 0px 10px rgba(255,255,100,1);
+}
+
+.share-button{
+  box-sizing: border-box;
+    width: 70px;
+    height: 70px;
+    /* border: 2px solid #fff; */
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin: 0 auto;
+    background-color: rgba(0,0,0,0.5);
+    margin-bottom: 5%;
+}
+
+.share-button:hover{
+  background-color: rgba(0,0,0,0.8);
+  box-shadow: 0px 0px 10px rgba(255,255,100,1);
+  text-shadow: 0px 0px 10px rgba(255,255,100,1);
+}
+
+button{
+  box-sizing: border-box;
+    width: 100px;
+   
+    border: 2px solid rgba(0,0,0,0.5);;
+    border-radius: 50%;
+    color: rgba(0,0,0,0.5);
+    text-align: center;
+    text-decoration: none;
+    font-size: 16;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin: 0 auto;
+    background-color: #fff;
+    margin-bottom: 5%;
+}
+
+button:hover{
+  background-color: #fff;
+  box-shadow: 0px 0px 10px rgb(35, 172, 46);
+  /* text-shadow: 0px 0px 10px rgb(35, 172, 46); */
+}
+
+
+    </style>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+ 
+</head>
+
+<body>
+          <!-- The core Firebase JS SDK is always required and must be listed first -->
+          <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js"></script>
+
+          <!-- TODO: Add SDKs for Firebase products that you want to use
+              https://firebase.google.com/docs/web/setup#available-libraries -->
+          <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-analytics.js"></script>
+          <script src="https://www.gstatic.com/firebasejs/7.2.1/firebase-database.js"></script>
+          
+
+          <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+              apiKey: "AIzaSyCaN564Zad20LrMIWCBg7IQDWmYpiXTDLw",
+              authDomain: "vamirrors.firebaseapp.com",
+              databaseURL: "https://vamirrors.firebaseio.com",
+              projectId: "vamirrors",
+              storageBucket: "vamirrors.appspot.com",
+              messagingSenderId: "694139676651",
+              appId: "1:694139676651:web:65bd8cf6937340d5801bae",
+              measurementId: "G-T7EJHWGYX8"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            firebase.analytics();
+
+
+
+
+           var database = firebase.database();
+
+          </script>
+
+
+
+<div class='App'>
+  <div class="container">
+    
+        
+    <div class="row">
+      <div class="col-3">
+          <br>
+          <!-- <font size="5"><b>Logo</b></font> -->
+          <img src='./logo_health_break.BMP' width="200"/>
+          <br>    
+     </div>
+     <div class="col-4">
+          <br>
+          <br>
+          <a href="Premiuim.html"><button type="button">Premium</button></a>
+          <a href="Shop.html"><button type="button">Shop</button></a>
+          <a href="Download.html"><button type="button">Download</button></a>      
+      </div>
+      <div class="col-5">
+        <br>
+        <a href="SignUp.html"><button type="button">Sign Up</button></a>
+        <a href="LogIn.html"><button type="button">Log In</button></a>
+        <br>    
+      </div>
+    </div>
+
+    <div class="row" style="border: solid 2px black;">
+      <div class="col-6" >
+        <br> 
+        <div style="height:100px;width:400px;overflow:auto;background-color:rgb(69, 211, 57);color:white;scrollbar-base-color:gold;font-family:sans-serif;padding:10px;">
+          HealthBreak HealthBreak HealthBreak HealthBreak HealthBreak HealthBreak HealthBreak HealthBreak HealthBreak HealthBreak HealthBreak HealthBreak 
+          HealthBreak HealthBreak HealthBreak HealthBreak HealthBreak HealthBreak HealthBreak HealthBreak HealthBreak HealthBreak HealthBreak HealthBreak </div>
+          <br> 
+      </div>
+      <div class="col-6" >
+        <br> 
+        <a href="SignUp.html"><button type="button" style="width: 200; background-color:rgb(69, 211, 57); font-weight: bold;">Sign Up</button></a>
+          <br><br>
+          <font style="font-style: italic;">Already a member ? &nbsp;&nbsp;&nbsp;</font><a href="LogIn.html"><button type="button" style="background-color:rgb(190, 201, 190);">Log In</button></a>
+          <br> 
+      </div>
+    </div>
+
+    <div class="row" style="border: solid 2px black;">
+      <!-- <div class="Bottomdiv"> -->
+        <div class="col-7 text-left display-4 font-weight-bold">
+          <h1>Latest Products</h1> 
+        </div>
+        <div class="col-5" style="border: solid 1px black;">
+          <img src='./icon.png' width="250"/>  
+        </div>
+      <!-- </div> -->
+    </div>
+
+ 
+
+
+</div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+ </body>
+</html>
