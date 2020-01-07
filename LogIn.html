@@ -181,23 +181,24 @@ button:hover{
           <script>
             // Your web app's Firebase configuration
             var firebaseConfig = {
-              apiKey: "AIzaSyCaN564Zad20LrMIWCBg7IQDWmYpiXTDLw",
-              authDomain: "vamirrors.firebaseapp.com",
-              databaseURL: "https://vamirrors.firebaseio.com",
-              projectId: "vamirrors",
-              storageBucket: "vamirrors.appspot.com",
-              messagingSenderId: "694139676651",
-              appId: "1:694139676651:web:65bd8cf6937340d5801bae",
-              measurementId: "G-T7EJHWGYX8"
-            };
+                      apiKey: "AIzaSyCXtbHbn8kU_qyq4yAkVfTNbvIrhA-PD5w",
+                      authDomain: "healthbreak-ce998.firebaseapp.com",
+                      databaseURL: "https://healthbreak-ce998.firebaseio.com",
+                      projectId: "healthbreak-ce998",
+                      storageBucket: "healthbreak-ce998.appspot.com",
+                      messagingSenderId: "1075421355778",
+                      appId: "1:1075421355778:web:f49b4e1725f7671aff6c1b",
+                      measurementId: "G-222LTJYBSG"
+                    };
             // Initialize Firebase
             firebase.initializeApp(firebaseConfig);
             firebase.analytics();
 
-
-
-
-           var database = firebase.database();
+            var database = firebase.database();
+            database.ref('/pic_id_to_link/' + myParam).once('value').then(function(snapshot) {
+            var picURL = snapshot.val();
+            
+            alert(picURL);
 
           </script>
 
