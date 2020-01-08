@@ -194,11 +194,12 @@ button:hover{
             firebase.initializeApp(firebaseConfig);
             firebase.analytics();
 
+            // alert("test");
             var database = firebase.database();
-            database.ref('/pic_id_to_link/' + myParam).once('value').then(function(snapshot) {
+            database.ref('/users/ariel/password').once('value').then(function(snapshot) {
             var picURL = snapshot.val();
-            
-            alert(picURL);
+            // alert(picURL);
+          });
 
           </script>
 
@@ -234,13 +235,13 @@ button:hover{
         <div align="center">
           <br> 
           User Name:&nbsp;
-          <input type="text" name="username" value="">
+          <input type="text" id="username" name="username" value="">
           <br>
           Password: &nbsp;&nbsp;&nbsp;
-          <input type="text" name="password" value="">
+          <input type="password" id="password" name="password" value="">
           <br><br>
         </div>
-          <button type="button" style="width: 200; background-color:rgb(69, 211, 57); font-weight: bold;">Log in</button>
+          <button type="button" onclick="onLoginClick()" style="width: 200; background-color:rgb(69, 211, 57); font-weight: bold;">Log in</button>
           <br><br>
           Forgot your password ?
           <br>
@@ -259,6 +260,43 @@ button:hover{
 </div>
 
 
+<script>
+  function onLoginClick(){
+    var inputUsername = document.getElementById("username").value;
+    // alert(username);
+    var database = firebase.database();
+              database.ref('/users/' + inputUsername + '/password').once('value').then(function(snapshot) {
+              var password = snapshot.val();
+              if(password==null)
+              {
+                alert("המשתמש לא קיים במערכת");
+              }
+              else
+              {
+                var inputPassword = document.getElementById("password").value;
+                if(password != inputPassword)
+                {
+                  alert("הסיסמא איננה נכונה");
+                }
+                else
+                {
+                  alert(" ברוך הבא " + inputUsername);
+                  database.ref('/users/' + inputUsername).once('value').then(function(snapshot) {
+
+                    var userDetails = "User Details: \n";
+                    snapshot.forEach(function(child) {
+                    console.log(child.key+': '+child.val());
+                    userDetails = userDetails + child.key+': '+child.val() + '\n';
+                  });
+
+                  alert(userDetails);
+                  });
+                }
+              }
+              
+            });
+  }
+  </script>
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

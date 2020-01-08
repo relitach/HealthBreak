@@ -181,15 +181,15 @@ button:hover{
           <script>
             // Your web app's Firebase configuration
             var firebaseConfig = {
-              apiKey: "AIzaSyCaN564Zad20LrMIWCBg7IQDWmYpiXTDLw",
-              authDomain: "vamirrors.firebaseapp.com",
-              databaseURL: "https://vamirrors.firebaseio.com",
-              projectId: "vamirrors",
-              storageBucket: "vamirrors.appspot.com",
-              messagingSenderId: "694139676651",
-              appId: "1:694139676651:web:65bd8cf6937340d5801bae",
-              measurementId: "G-T7EJHWGYX8"
-            };
+                      apiKey: "AIzaSyCXtbHbn8kU_qyq4yAkVfTNbvIrhA-PD5w",
+                      authDomain: "healthbreak-ce998.firebaseapp.com",
+                      databaseURL: "https://healthbreak-ce998.firebaseio.com",
+                      projectId: "healthbreak-ce998",
+                      storageBucket: "healthbreak-ce998.appspot.com",
+                      messagingSenderId: "1075421355778",
+                      appId: "1:1075421355778:web:f49b4e1725f7671aff6c1b",
+                      measurementId: "G-222LTJYBSG"
+                    };
             // Initialize Firebase
             firebase.initializeApp(firebaseConfig);
             firebase.analytics();
@@ -230,37 +230,127 @@ button:hover{
       <div class="col-12" >
         <div align="center">
           <br> 
-          <input type="text" name="email" value="Email">
+          <input type="text" id="email" name="email" value="Email">
           <br>
-          <input type="text" name="confirmemail" value="Confirm email">
+          <input type="text" id="confirmemail" name="confirmemail" value="Confirm email">
           <br>
-          <input type="text" name="password" value="Password">
+          <input type="text" id="password" name="password" value="Password">
           <br>
-          <input type="text" name="username" value="Username">
+          <input type="text" id="username" name="username" value="Username">
           <br>
-          <input type="text" name="dateofbirth" value="Date of birth">
+          <input type="text" id="dateofbirth" name="dateofbirth" value="Date of birth">
           <br><br>
-          <input type="radio" name="gender" value="male"> Male
-          <input type="radio" name="gender" value="female"> Female<br>
+          <input type="radio" id="male" name="gender" value="male"> Male
+          <input type="radio" id="female" name="gender" value="female"> Female<br>
           <br>
-          <input type="checkbox" name="vehicle1" value="Bike"> Yes, I would like to receive by email the latest news, innovation updates, and offers from Healthbreak.<br>
-          <input type="checkbox" name="vehicle2" value="Car"> I have read and agree to the Privacy Policy & Terms of Use.<br>
+          <input type="checkbox" id="firstcheckbox"  onchange="setValue(this.value)"name="firstcheckbox" value="no"> Yes, I would like to receive by email the latest news, innovation updates, and offers from Healthbreak.<br>
+          <input type="checkbox" id="secondcheckbox" name="secondcheckbox" value="no"> I have read and agree to the Privacy Policy & Terms of Use.<br>
           <br><br>
 
         </div>
-          <button type="button" style="width: 200; background-color:rgb(69, 211, 57); font-weight: bold;">Sign up</button>
+          <button type="button" onclick="onRegisterClick()" style="width: 200; background-color:rgb(69, 211, 57); font-weight: bold;">Sign up</button>
           <br><br>
           <br> 
           <br>
       </div>
     </div>
-
- 
-
-
 </div>
 
 
+
+<script>
+  function onRegisterClick(){
+    var email = document.getElementById("email").value;
+    var confirmemail = document.getElementById("confirmemail").value;
+    var password = document.getElementById("password").value;
+    var username = document.getElementById("username").value;
+    var dateofbirth = document.getElementById("dateofbirth").value;
+    var male = document.getElementById("male").value;
+    var female = document.getElementById("female").value;
+    var genders = document.getElementsByName("gender");
+    var firstcheckbox = document.getElementById("firstcheckbox").checked;
+    var secondcheckbox = document.getElementById("secondcheckbox").checked;
+    var selectedGender;
+    // alert(email + '\n' + confirmemail + '\n' + password + '\n' +  username + '\n' + dateofbirth + '\n' + male + '\n' + female + '\n' + firstcheckbox + '\n' + secondcheckbox);
+
+    if(email.localeCompare(confirmemail) != 0)
+    {
+      alert("כתובות המייל לא תואמות אחת לשניה")
+    }
+    else
+    {
+      if(password.length == 0 || password.localeCompare("Password") == 0)
+      {
+        alert("אנא הכנס סיסמא");
+      }
+      else
+      {
+        var database = firebase.database();
+        database.ref('/users/' + username + '/username').once('value').then(function(snapshot) {
+        var firebaseUsername = snapshot.val();
+        if(username.length == 0 || username.localeCompare("Username") == 0)
+        {
+          alert("אנא הכנס שם משתמש");
+        }
+        else
+        {
+          if(firebaseUsername != null)
+          {
+            alert("שם המשתמש כבר קיים במערכת");
+          }
+          else
+          {
+            if(dateofbirth.length == 0 || dateofbirth.localeCompare("Date of birth") == 0)
+            {
+              alert("אנא הכנס תאריך לידה");
+            }
+            else
+            {
+              for(var i = 0; i < genders.length; i++) 
+              {
+                if(genders[i].checked)
+                    selectedGender = genders[i].value;
+              }
+              // alert(selectedGender);
+              if(selectedGender==undefined)
+              selectedGender = "undefined";
+              // write to database
+              firebase.database().ref('users/' + username).set({
+                  username: name,
+                  email: email,
+                  password: password,
+                  dateofbirth: dateofbirth,
+                  gender: selectedGender,
+                  firstcheckbox: firstcheckbox,
+                  secondcheckbox: secondcheckbox,
+                  exerciseCounter: 0,
+                  skipCounter: 0,
+                  timeInFrontOfScreen: ""
+                }, function(error) {
+                  if (error) {
+                    // The write failed...
+                    alert("כישלון בתהליך ההרשמה, אנא נסה שוב");
+                  } else {
+                    // Data saved successfully!
+                    alert("ההרשמה התבצעה בהצלחה");
+                  }
+                });
+              
+
+              
+
+
+            }
+          }
+        }
+        });
+      }
+    }
+
+
+
+  }
+  </script>
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
