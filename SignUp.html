@@ -229,16 +229,45 @@ button:hover{
     <div class="row" style="border: solid 2px black;">
       <div class="col-12" >
         <div align="center">
-          <br> 
-          <input type="text" id="email" name="email" value="Email">
           <br>
-          <input type="text" id="confirmemail" name="confirmemail" value="Confirm email">
-          <br>
-          <input type="text" id="password" name="password" value="Password">
-          <br>
-          <input type="text" id="username" name="username" value="Username">
-          <br>
-          <input type="text" id="dateofbirth" name="dateofbirth" value="Date of birth">
+          <table>
+
+            <tr>
+              <th>Email: </th>
+              <th>
+              <input type="text" onfocus="this.value=''" id="email" name="email" value="Email">
+              </th>
+            </tr>
+
+            <tr> 
+              <th>Confirm Email: </th>
+              <th>   
+              <input type="text" onfocus="this.value=''" id="confirmemail" name="confirmemail" value="Confirm email">
+              </th>
+            </tr>
+            <tr>
+              <th>Password: </th>
+              <th>
+              <input type="password" onfocus="this.value=''" id="password" name="password" value="Password">
+              </th>
+            </tr>
+
+            <tr>
+              <th>Username: </th>
+              <th>
+              <input type="text" onfocus="this.value=''" id="username" name="username" value="Username">
+              </th>
+            </tr>
+
+            <tr>
+              <th>Date of birth: </th>
+              <th>
+              <input type="text" onfocus="this.value=''" id="dateofbirth" name="dateofbirth" value="Date of birth">
+              </th>
+            </tr>
+
+          </table> 
+
           <br><br>
           <input type="radio" id="male" name="gender" value="male"> Male
           <input type="radio" id="female" name="gender" value="female"> Female<br>
@@ -306,40 +335,57 @@ button:hover{
             }
             else
             {
-              for(var i = 0; i < genders.length; i++) 
+              if(secondcheckbox == false)
               {
-                if(genders[i].checked)
-                    selectedGender = genders[i].value;
+                alert("אנא קרא וסמן שקראת את ה- Privacy Policy & Terms of Use");
               }
-              // alert(selectedGender);
-              if(selectedGender==undefined)
-              selectedGender = "undefined";
-              // write to database
-              firebase.database().ref('users/' + username).set({
-                  username: name,
-                  email: email,
-                  password: password,
-                  dateofbirth: dateofbirth,
-                  gender: selectedGender,
-                  firstcheckbox: firstcheckbox,
-                  secondcheckbox: secondcheckbox,
-                  exerciseCounter: 0,
-                  skipCounter: 0,
-                  timeInFrontOfScreen: ""
-                }, function(error) {
-                  if (error) {
-                    // The write failed...
-                    alert("כישלון בתהליך ההרשמה, אנא נסה שוב");
-                  } else {
-                    // Data saved successfully!
-                    alert("ההרשמה התבצעה בהצלחה");
-                  }
-                });
-              
+              else
+              {
+
+                for(var i = 0; i < genders.length; i++) 
+                {
+                  if(genders[i].checked)
+                      selectedGender = genders[i].value;
+                }
+                // alert(selectedGender);
+                if(selectedGender==undefined)
+                selectedGender = "undefined";
+                // write to database
+                firebase.database().ref('users/' + username).set({
+                    username: name,
+                    email: email,
+                    password: password,
+                    dateofbirth: dateofbirth,
+                    gender: selectedGender,
+                    firstcheckbox: firstcheckbox,
+                    secondcheckbox: secondcheckbox,
+                    exerciseCounter: 0,
+                    skipCounter: 0,
+                    timeInFrontOfScreen: ""
+                  }, function(error) {
+                    if (error) {
+                      // The write failed...
+                      alert("כישלון בתהליך ההרשמה, אנא נסה שוב");
+                    } else {
+                      // Data saved successfully!
+                      alert("ההרשמה התבצעה בהצלחה");
+                    }
+                  });
+                  
+                  document.getElementById("email").value = "";
+                  document.getElementById("confirmemail").value = "";
+                  document.getElementById("password").value = "";
+                  document.getElementById("username").value = "";
+                  document.getElementById("dateofbirth").value = "";
+                  document.getElementById("male").checked = false;
+                  document.getElementById("female").checked = false;
+                  // var genders = document.getElementsByName("gender");
+                  document.getElementById("firstcheckbox").checked = false;
+                  document.getElementById("secondcheckbox").checked = false;
 
               
 
-
+              }
             }
           }
         }

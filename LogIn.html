@@ -233,12 +233,18 @@ button:hover{
     <div class="row" style="border: solid 2px black;">
       <div class="col-12" >
         <div align="center">
-          <br> 
-          User Name:&nbsp;
-          <input type="text" id="username" name="username" value="">
           <br>
-          Password: &nbsp;&nbsp;&nbsp;
-          <input type="password" id="password" name="password" value="">
+          <table>
+            <tr>
+              <th>User Name: </th>
+              <th><input type="text" onfocus="this.value=''" id="username" name="username" value=""></th> 
+            </tr>
+            <tr>
+              <th>Password: </th>
+              <th><input type="password" onfocus="this.value=''" id="password" name="password" value=""></th> 
+            </tr>
+          </table>
+
           <br><br>
         </div>
           <button type="button" onclick="onLoginClick()" style="width: 200; background-color:rgb(69, 211, 57); font-weight: bold;">Log in</button>
@@ -283,13 +289,17 @@ button:hover{
                   alert(" ברוך הבא " + inputUsername);
                   database.ref('/users/' + inputUsername).once('value').then(function(snapshot) {
 
-                    var userDetails = "User Details: \n";
+                    var userDetails = "\n";
                     snapshot.forEach(function(child) {
                     console.log(child.key+': '+child.val());
-                    userDetails = userDetails + child.key+': '+child.val() + '\n';
+                    userDetails = userDetails + child.key+': '+child.val() + '\n' + '<br>';
                   });
 
-                  alert(userDetails);
+                  document.getElementById("username").value = "";
+                  document.getElementById("password").value = "";
+                  sessionStorage.setItem('userdetails', userDetails);
+                  window.open("index.html");
+                  // alert(userDetails);
                   });
                 }
               }

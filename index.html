@@ -247,8 +247,15 @@ button:hover{
     </div>
 
     <div class="row" style="border: solid 2px black;">
-        <div class="col-7 text-left display-4 font-weight-bold">
-          <h1>Latest Products</h1> 
+        <div class="col-7 text-left display-9 font-weight-bold">
+          <h1>User Details: </h1>
+          <script>
+            if(sessionStorage.getItem('userdetails') == null)
+              document.writeln("Please Log in to see your details...");
+            else
+              document.writeln(sessionStorage.getItem('userdetails'));
+          </script>
+          
         </div>
         <div class="col-5" style="border: solid 1px black;">
           <img src='./icon.png' width="250"/>  
